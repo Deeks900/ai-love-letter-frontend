@@ -1,0 +1,66 @@
+<div class="container">
+  <h1>💖 AI Love Letter Generator</h1>
+
+  <!-- Form -->
+  <div class="form-group">
+    <label>Your Name</label>
+    <input type="text" [(ngModel)]="senderName" placeholder="Your name" />
+  </div>
+
+  <div class="form-group">
+    <label>Their Name</label>
+    <input type="text" [(ngModel)]="receiverName" placeholder="Their name" />
+  </div>
+
+  <div class="form-group">
+    <label>Relationship</label>
+    <input type="text" [(ngModel)]="relationship" placeholder="e.g. Best friend, Crush, Partner" />
+  </div>
+
+  <div class="form-group">
+    <label>Tone</label>
+    <select [(ngModel)]="tone">
+      <option value="romantic">Romantic</option>
+      <option value="cute">Cute</option>
+      <option value="deep">Deep</option>
+      <option value="playful">Playful</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Emotion Level: {{ emotion }}</label>
+    <input type="range" min="10" max="100" [(ngModel)]="emotion" />
+  </div>
+
+  <div class="form-group">
+    <label>Language</label>
+    <select [(ngModel)]="language">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="fr">French</option>
+      <option value="es">Spanish</option>
+    </select>
+  </div>
+
+  <button (click)="generateLetter()">💌 Generate Love Letter</button>
+</div>
+
+<!-- Popup -->
+<div *ngIf="letter || loading" class="popup-overlay" (click)="closePopup()">
+  <div class="popup-card" (click)="$event.stopPropagation()" [ngStyle]="{'border-color': getEmotionColor()}">
+
+    <button class="close-btn" (click)="closePopup()">✖</button>
+
+    <!-- Loading indicator -->
+    <div *ngIf="loading" class="loading">
+      Generating your love letter... 💖
+    </div>
+
+    <!-- Letter content -->
+    <div *ngIf="!loading">
+      <h2>💌 Love Letter</h2>
+      <p>{{ letter }}</p>
+    </div>
+
+  </div>
+</div>
